@@ -14,13 +14,20 @@ class BlogController extends Controller
     public function store(request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|min:30|max:255',
-            'content' => 'required|min:30',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'address' => 'required|min:30',
+            'url' => 'required|url',
+            'gender' => '',
         ]);
         if ($validated) {
             echo $request->title . '<br>' . $request->content;
         } else {
             $validated->error();
         }
+        $data=  $request->get()->all();
+        return view('form')->with($data);
+     
     }
 }
