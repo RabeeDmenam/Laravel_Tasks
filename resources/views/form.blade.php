@@ -22,8 +22,6 @@
         <div class="row">
 
 
-
-
             <form class="mt-5" action="<?php echo url('/storeData'); ?> " method="get">
                 <div class="form-group">
                     <label for="exampleInputEmail1">name</label>
@@ -46,14 +44,14 @@
                     <input name="url" type="url" class="form-control" placeholder="Enter url">
                 </div>
 
-                <div class="form-check form-check-inline">
+                {{-- <div class="form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                   <label name="male" class="form-check-label" for="inlineCheckbox1">male</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
                   <label  name="Female" class="form-check-label" for="inlineCheckbox2">felame</label>
-                </div>
+                </div> --}}
                 <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

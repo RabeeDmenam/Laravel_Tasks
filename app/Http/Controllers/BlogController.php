@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\adminmodel;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -13,7 +13,7 @@ class BlogController extends Controller
 
     public function store(request $request)
     {
-        $validated = $request->validate([
+     $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -21,13 +21,53 @@ class BlogController extends Controller
             'url' => 'required|url',
             'gender' => '',
         ]);
-        if ($validated) {
-            echo $request->title . '<br>' . $request->content;
-        } else {
-            $validated->error();
-        }
-        $data=  $request->get()->all();
-        return view('form')->with($data);
-     
+
+     $op =   adminmodel::create($data);
+     if($op){
+
+        dd('done');
+     }else{
+         dd('error');
+     }
+
+    // return view('index', compact('op'));
+
     }
+
+    public function index()
+    {
+        $data=adminmodel::get();
+
+        return  view('index',compact('data'));
+    }
+
+
+    public function edit($id)
+    {
+        $data2 = adminmodel::find($id);
+        return  view('edit',['data2' => $data2]);
+
+    }
+    public function update(Request $request )
+    {
+        $update = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'address' => 'required|min:30',
+            'url' => 'required|url',
+        ]);
+        $DOupdate= adminmodel::where('id',$request->id)->update($update);
+            if ($DOupdate)
+            {
+                $message = "updated done";
+            }else{
+                $message = "Something went wrong";
+            }
+
+            session()-flash('message',$message);
+
+    }
+
+
+
 }
