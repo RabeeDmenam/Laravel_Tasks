@@ -43,13 +43,13 @@ class StudentsControllor extends Controller
             'cv' => 'required|file',
 
         ]);
-        $extension= $request->file("file")->getClientOriginalExtension();
-        $stringPaperFormat=str_replace(" ", "", $request->input('title'));
-        $fileName= $stringPaperFormat.".".$extension;
-        $FileEnconded=  File::get($request->cv);
-        Storage::disk('local')->put('public/cv'.$fileName, $FileEnconded);
-       // $newsubmission= array("title"=>$title, "paper"=>$fileName);
-
+        if($request->file('file'))
+        {
+            $file = $request->file('file');
+            $filename = time() . '.' . $request->file('file')->extension();
+            $filePath = public_path() . '/files/uploads/';
+            $file->move($filePath, $filename);
+        }
         $op =   students::create($data);
         if($op){
 
