@@ -104,4 +104,37 @@ class StudentsControllor extends Controller
     {
         //
     }
+
+
+
+
+    public function Login(){
+        return view('Users.login');
+    }
+
+
+
+    public function DoLogin(Request $request){
+        // logic .....
+
+        $data = $this->validate($request,[
+            "email"    => "required|email",
+            "password" => "required|min:6"
+        ]);
+
+
+        if(auth()->attempt($data)){
+            return redirect(url('/index'));
+        }else{
+            return redirect('/Login');
+        }
+
+    }
+
+
+
+    public function logout(){
+        auth()->logout();
+        return redirect(url('/Login'));
+    }
 }
